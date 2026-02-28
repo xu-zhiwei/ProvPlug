@@ -1,0 +1,97 @@
+version: '3.8'
+
+services:
+  # -----------------------
+  # 基础设施服务
+  # -----------------------
+  
+  zookeeper:
+    image: confluentinc/cp-zookeeper:7.3.0
+    container_name: shadewatcher-zookeeper
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+      ZOOKEEPER_TICK_TIME: 2000
+
+  kafka:
+    image: confluentinc/cp-kafka:7.3.0
+    container_name: shadewatcher-kafka
+    depends_on:
+      - zookeeper
+    ports:
+      - "9092:9092"
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092,PLAINTEXT_HOST://localhost:29092
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
+      KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+
+  postgres:
+    image: postgres:13
+    container_name: shadewatcher-postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: shadewatcher
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5433:5432"
+
+  neo4j:
+    image: neo4j:4.4
+    container_name: shadewatcher-neo4j
+    environment:
+      NEO4J_AUTH: neo4j/password
+      NEO4J_dbms_memory_pagecache_size: 1G
+      NEO4J_dbms_memory_heap_initial__size: 1G
+      NEO4J_dbms_memory_heap_max__size: 1G
+    volumes:
+      - neo4j_data:/data
+    ports:
+      - "7474:7474"
+      - "7687:7687"
+
+  # -----------------------
+  # 应用服务
+  # -----------------------
+
+  parser:
+    build:
+      context: .
+      dockerfile: Dockerfile.parser
+    container_name: shadewatcher-parser
+    depends_on:
+      - kafka
+      - postgres
+      - neo4j
+    volumes:
+      - ./config:/app/config
+      - ./data:/app/data
+      - ./audit:/app/audit
+    # 保持容器运行，以便手动执行命令
+    command: tail -f /dev/null
+    # 示例运行命令（需确保 config/kafka.cfg 正确）:
+    # command: ./driverkafka -kafkaconfig kafka.cfg
+
+  recommender:
+    build:
+      context: .
+      dockerfile: Dockerfile.recommend
+    container_name: shadewatcher-recommender
+    depends_on:
+      - parser
+    volumes:
+      - ./config:/app/config
+      - ./data:/app/data
+      - ./recommend:/app/recommend
+    # 保持容器运行，以便手动执行命令
+    command: tail -f /dev/null
+    # 示例运行命令:
+    # command: python driver.py -h
+
+volumes:
+  postgres_data:
+  neo4j_data:
+

@@ -1,0 +1,58 @@
+FROM ubuntu:20.04
+
+# 避免交互式前端
+ENV DEBIAN_FRONTEND=noninteractive
+
+# 安装编译工具和依赖库
+RUN apt-get update && apt-get install -y \
+    build-essential \
+    g++ \
+    make \
+    cmake \
+    git \
+    wget \
+    pkg-config \
+    libssl-dev \
+    libneo4j-client-dev \
+    libpq-dev \
+    libpqxx-dev \
+    libconfig++-dev \
+    libjsoncpp-dev \
+    librdkafka-dev \
+    libgvc6 \
+    && rm -rf /var/lib/apt/lists/*
+
+# 设置工作目录
+WORKDIR /app
+
+# 复制项目文件
+COPY . /app
+
+# 编译 Parser
+WORKDIR /app/parse
+# 清理并编译所有目标
+RUN make clean && make all
+
+# 创建启动脚本
+RUN echo '#!/bin/bash\n\
+\n\
+# 替换配置文件中的 localhost 为对应的服务名\n\
+sed -i "s/localhost/postgres/g" /app/config/*.cfg\n\
+sed -i "s/127.0.0.1/postgres/g" /app/config/*.cfg\n\
+sed -i "s/host = \"localhost\"/host = \"postgres\"/g" /app/config/postgresdb.cfg\n\
+\n\
+# 对于 Kafka，通常配置在 kafka.cfg\n\
+sed -i "s/localhost/kafka/g" /app/config/kafka.cfg\n\
+\n\
+# 对于 Neo4j\n\
+sed -i "s/localhost/neo4j/g" /app/config/neo4jdb.cfg\n\
+\n\
+# 执行传入的命令\n\
+exec "$@"' > /app/entrypoint.sh && chmod +x /app/entrypoint.sh
+
+# 设置入口点
+ENTRYPOINT ["/app/entrypoint.sh"]
+
+# 默认命令（可以根据需要修改，例如运行 driverkafka）
+CMD ["./driverkafka", "-h"]
+

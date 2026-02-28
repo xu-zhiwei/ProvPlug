@@ -1,0 +1,29 @@
+FROM python:3.6-slim
+
+# 安装必要的系统库（如果有需要编译的 Python 包）
+RUN apt-get update && apt-get install -y \
+    build-essential \
+    && rm -rf /var/lib/apt/lists/*
+
+WORKDIR /app
+
+# 复制 requirements.txt
+COPY requirements.txt .
+
+# 安装 Python 依赖
+# 注意：tensorflow 1.14 比较旧，可能需要特定 pip 版本或从 whl 安装，这里先尝试直接安装
+RUN pip install --no-cache-dir -r requirements.txt
+
+# 复制推荐模块代码
+COPY recommend /app/recommend
+COPY data /app/data
+# 复制 util 模块，如果 recommend 依赖于它（看起来 recommend 目录下有自己的 util）
+# 如果 recommend/util 依赖于 parse 目录下的任何东西，需要复制，但看起来是独立的
+
+WORKDIR /app/recommend
+
+# 设置环境变量
+ENV PYTHONPATH=/app
+
+CMD ["python", "driver.py", "-h"]
+

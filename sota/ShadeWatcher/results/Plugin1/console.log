@@ -1,0 +1,186 @@
+nohup: ignoring input
+WARNING:tensorflow:From /home/wuyj/shadewatcher-4-0.9-plugin1/recommend/model/GNN.py:667: The name tf.Session is deprecated. Please use tf.compat.v1.Session instead.
+
+WARNING:tensorflow:From /home/wuyj/shadewatcher-4-0.9-plugin1/recommend/driver.py:30: The name tf.set_random_seed is deprecated. Please use tf.compat.v1.set_random_seed instead.
+
+[37m2026-01-04 09:03:44,316 | [33m  INFO | [33mSystem interactions[0m
+[37m2026-01-04 09:03:44,317 | [36m DEBUG | [36m[n_inter]=[134694][0m
+[37m2026-01-04 09:03:44,317 | [36m DEBUG | [36m[n_train_inter, n_test_inter, n_val_inter]=[42968, 134694, 6721][0m
+[37m2026-01-04 09:03:44,317 | [33m  INFO | [33mKnowledge graph[0m
+[37m2026-01-04 09:03:44,318 | [36m DEBUG | [36m[n_triple]=[33289][0m
+[37m2026-01-04 09:03:44,318 | [36m DEBUG | [36m[n_entity, n_relation and n_attr]=[936962, 27, 0][0m
+[37m2026-01-04 09:03:44,318 | [33m  INFO | [33mDetection model[0m
+[37m2026-01-04 09:03:44,318 | [36m DEBUG | [36m[training epoch]=[100][0m
+[37m2026-01-04 09:03:44,319 | [36m DEBUG | [36m[batch_size_gnn and batch_size_kg]=[1024, 1024][0m
+[37m2026-01-04 09:03:44,325 | [33m  INFO | [33mstart converting graph info into sparse adjacency matrix...[0m
+[37m2026-01-04 09:03:44,334 | [36m DEBUG | [36mconverting system interactions into sparse adjacency matrix done.[0m
+[37m2026-01-04 09:03:44,363 | [36m DEBUG | [36mconverting knowledge graph into sparse adjacency matrix done.[0m
+[37m2026-01-04 09:03:44,363 | [33m  INFO | [33mfinish converting graph info into sparse adjacency matrix.[0m
+[37m2026-01-04 09:03:44,363 | [33m  INFO | [33mstart generating normalized adjacency matrix with si...[0m
+[37m2026-01-04 09:03:44,363 | [36m DEBUG | [36mgenerating si-normalized adjacency matrix done.[0m
+[37m2026-01-04 09:03:45,608 | [33m  INFO | [33mfinish generating normalized adjacency matrix.[0m
+[37m2026-01-04 09:03:45,718 | [33m  INFO | [33mstart sorting indices in kg triples...[0m
+[37m2026-01-04 09:03:45,949 | [36m DEBUG | [36mreorganizing kg data done.[0m
+[37m2026-01-04 09:03:46,313 | [36m DEBUG | [36msorting (tail,relation) in heads done[0m
+[37m2026-01-04 09:03:46,663 | [36m DEBUG | [36msorting head done.[0m
+[37m2026-01-04 09:03:46,664 | [33m  INFO | [33mfinish sorting indices in kg triples[0m
+[37m2026-01-04 09:03:46,849 | [33m  INFO | [33mstart initing Graph Neural Network...[0m
+[37m2026-01-04 09:03:46,849 | [33m  INFO | [33mstart building inputs[0m
+WARNING:tensorflow:From /home/wuyj/shadewatcher-4-0.9-plugin1/recommend/model/GNN.py:109: The name tf.placeholder is deprecated. Please use tf.compat.v1.placeholder instead.
+
+[37m2026-01-04 09:03:46,856 | [33m  INFO | [33mfinish building inputs[0m
+[37m2026-01-04 09:03:46,856 | [33m  INFO | [33mstart building weights[0m
+WARNING:tensorflow:
+The TensorFlow contrib module will not be included in TensorFlow 2.0.
+For more information, please see:
+  * https://github.com/tensorflow/community/blob/master/rfcs/20180907-contrib-sunset.md
+  * https://github.com/tensorflow/addons
+  * https://github.com/tensorflow/io (for I/O related ops)
+If you depend on functionality not listed there, please file an issue.
+
+[37m2026-01-04 09:03:47,431 | [33m  INFO | [33madapting Xavier to initialize kg embedding[0m
+[37m2026-01-04 09:03:47,432 | [33m  INFO | [33madapting Xavier to initialize relation embedding[0m
+[37m2026-01-04 09:03:47,436 | [33m  INFO | [33madapting Xavier to initialize TransR embedding[0m
+[37m2026-01-04 09:03:47,440 | [33m  INFO | [33madapting Xavier to initialize GraphSage embedding[0m
+[37m2026-01-04 09:03:47,448 | [33m  INFO | [33madapting Xavier to initialize GraphSage embedding[0m
+[37m2026-01-04 09:03:47,464 | [33m  INFO | [33mfinish building weights[0m
+[37m2026-01-04 09:03:47,464 | [33m  INFO | [33mstart building inter model[0m
+[37m2026-01-04 09:03:47,465 | [33m  INFO | [33mstart building GraphSage network[0m
+WARNING:tensorflow:From /home/wuyj/shadewatcher-4-0.9-plugin1/recommend/model/GNN.py:273: The name tf.sparse_tensor_dense_matmul is deprecated. Please use tf.sparse.sparse_dense_matmul instead.
+
+WARNING:tensorflow:From /home/wuyj/shadewatcher-4-0.9-plugin1/recommend/model/GNN.py:286: calling dropout (from tensorflow.python.ops.nn_ops) with keep_prob is deprecated and will be removed in a future version.
+Instructions for updating:
+Please use `rate` instead of `keep_prob`. Rate should be set to `rate = 1 - keep_prob`.
+[37m2026-01-04 09:03:47,542 | [33m  INFO | [33mfinish building GraphSage network[0m
+[37m2026-01-04 09:03:47,548 | [33m  INFO | [33mfinish building inter model[0m
+[37m2026-01-04 09:03:47,548 | [33m  INFO | [33mstart building inter loss[0m
+[37m2026-01-04 09:03:47,571 | [33m  INFO | [33madapting Adam as optimization function for gnn[0m
+WARNING:tensorflow:From /home/wuyj/shadewatcher-4-0.9-plugin1/recommend/model/GNN.py:378: The name tf.train.AdamOptimizer is deprecated. Please use tf.compat.v1.train.AdamOptimizer instead.
+
+WARNING:tensorflow:From /home/wuyj/anaconda3/envs/py365/lib/python3.6/site-packages/tensorflow/python/ops/math_grad.py:1250: add_dispatch_support.<locals>.wrapper (from tensorflow.python.ops.array_ops) is deprecated and will be removed in a future version.
+Instructions for updating:
+Use tf.where in 2.0, which has the same broadcast rule as np.where
+[37m2026-01-04 09:03:47,995 | [33m  INFO | [33mfinish building inter loss[0m
+[37m2026-01-04 09:03:47,995 | [33m  INFO | [33mstart building TransR model.[0m
+[37m2026-01-04 09:03:48,047 | [33m  INFO | [33mfinish building TransR model.[0m
+[37m2026-01-04 09:03:48,047 | [33m  INFO | [33mstart building kg loss.[0m
+WARNING:tensorflow:From /home/wuyj/shadewatcher-4-0.9-plugin1/recommend/model/GNN.py:613: calling reduce_sum_v1 (from tensorflow.python.ops.math_ops) with keep_dims is deprecated and will be removed in a future version.
+Instructions for updating:
+keep_dims is deprecated, use keepdims instead
+[37m2026-01-04 09:03:48,084 | [33m  INFO | [33madapting Adam as optimization function for kg.[0m
+[37m2026-01-04 09:03:48,649 | [33m  INFO | [33mfinish building kg loss.[0m
+[37m2026-01-04 09:03:48,650 | [33m  INFO | [33mModel parameters:[0m
+[37m2026-01-04 09:03:48,651 | [33m  INFO | [33mentity_attr_embed:	29982784[0m
+[37m2026-01-04 09:03:48,651 | [33m  INFO | [33mrel_embed:	896[0m
+[37m2026-01-04 09:03:48,651 | [33m  INFO | [33mtrans_w:	28672[0m
+[37m2026-01-04 09:03:48,651 | [33m  INFO | [33mw_sage_0:	2048[0m
+[37m2026-01-04 09:03:48,652 | [33m  INFO | [33mb_sage_0:	32[0m
+[37m2026-01-04 09:03:48,652 | [33m  INFO | [33mw_sage_1:	1024[0m
+[37m2026-01-04 09:03:48,652 | [33m  INFO | [33mb_sage_1:	16[0m
+[37m2026-01-04 09:03:48,652 | [33m  INFO | [33m#Total parameters:	 30015472[0m
+WARNING:tensorflow:From /home/wuyj/shadewatcher-4-0.9-plugin1/recommend/driver.py:71: The name tf.ConfigProto is deprecated. Please use tf.compat.v1.ConfigProto instead.
+
+2026-01-04 09:03:48.867609: E tensorflow/stream_executor/cuda/cuda_driver.cc:318] failed call to cuInit: CUDA_ERROR_NO_DEVICE: no CUDA-capable device is detected
+[37m2026-01-04 09:03:54,312 | [33m  INFO | [33mTotal 20 epochs[0m
+[37m2026-01-04 09:03:54,312 | [33m  INFO | [33mEpoch X [time]: train==[loss= inter_loss + kg_loss + reg_loss][0m
+[37m2026-01-04 09:03:54,313 | [33m  INFO | [33mEpoch X [time]: test==[true_positive, false_positive][0m
+[37m2026-01-04 09:06:46,379 | [33m  INFO | [33mEpoch 1 [171.8s]: train==[16.78949 = 8.28910 + 8.49810 + 0.00229][0m
+[37m2026-01-04 09:06:49,965 | [33m  INFO | [33mvalidation==[[3.6s] tn_b: 891, fp_b: 5830][0m
+[37m2026-01-04 09:07:47,194 | [33m  INFO | [33mtest model @epoch 1 [57.2s]:[0m
+[37m2026-01-04 09:07:47,195 | [33m  INFO | [33mmetrics: tp_m, value: 134688[0m
+[37m2026-01-04 09:07:47,195 | [33m  INFO | [33mmetrics: fn_m, value: 6[0m
+[37m2026-01-04 09:10:13,060 | [33m  INFO | [33mEpoch 2 [145.9s]: train==[6.91999 = 6.31919 + 0.59815 + 0.00265][0m
+[37m2026-01-04 09:10:16,317 | [33m  INFO | [33mvalidation==[[3.3s] tn_b: 2290, fp_b: 4431][0m
+[37m2026-01-04 09:11:07,735 | [33m  INFO | [33mtest model @epoch 2 [51.4s]:[0m
+[37m2026-01-04 09:11:07,735 | [33m  INFO | [33mmetrics: tp_m, value: 134688[0m
+[37m2026-01-04 09:11:07,736 | [33m  INFO | [33mmetrics: fn_m, value: 6[0m
+[37m2026-01-04 09:13:31,249 | [33m  INFO | [33mEpoch 3 [143.5s]: train==[4.41470 = 4.28999 + 0.12184 + 0.00286][0m
+[37m2026-01-04 09:13:34,627 | [33m  INFO | [33mvalidation==[[3.4s] tn_b: 2474, fp_b: 4247][0m
+[37m2026-01-04 09:14:30,469 | [33m  INFO | [33mtest model @epoch 3 [55.8s]:[0m
+[37m2026-01-04 09:14:30,470 | [33m  INFO | [33mmetrics: tp_m, value: 134688[0m
+[37m2026-01-04 09:14:30,470 | [33m  INFO | [33mmetrics: fn_m, value: 6[0m
+[37m2026-01-04 09:16:49,551 | [33m  INFO | [33mEpoch 4 [139.1s]: train==[3.79702 = 3.73673 + 0.05731 + 0.00298][0m
+[37m2026-01-04 09:16:52,915 | [33m  INFO | [33mvalidation==[[3.4s] tn_b: 2591, fp_b: 4130][0m
+[37m2026-01-04 09:17:45,861 | [33m  INFO | [33mtest model @epoch 4 [52.9s]:[0m
+[37m2026-01-04 09:17:45,865 | [33m  INFO | [33mmetrics: tp_m, value: 134688[0m
+[37m2026-01-04 09:17:45,865 | [33m  INFO | [33mmetrics: fn_m, value: 6[0m
+[37m2026-01-04 09:20:05,705 | [33m  INFO | [33mEpoch 5 [139.8s]: train==[3.41220 = 3.37355 + 0.03560 + 0.00305][0m
+[37m2026-01-04 09:20:09,112 | [33m  INFO | [33mvalidation==[[3.4s] tn_b: 2713, fp_b: 4008][0m
+[37m2026-01-04 09:21:01,499 | [33m  INFO | [33mtest model @epoch 5 [52.4s]:[0m
+[37m2026-01-04 09:21:01,500 | [33m  INFO | [33mmetrics: tp_m, value: 134688[0m
+[37m2026-01-04 09:21:01,500 | [33m  INFO | [33mmetrics: fn_m, value: 6[0m
+[37m2026-01-04 09:23:20,691 | [33m  INFO | [33mEpoch 6 [139.2s]: train==[3.21214 = 3.18396 + 0.02507 + 0.00311][0m
+[37m2026-01-04 09:23:24,075 | [33m  INFO | [33mvalidation==[[3.4s] tn_b: 2808, fp_b: 3913][0m
+[37m2026-01-04 09:24:16,367 | [33m  INFO | [33mtest model @epoch 6 [52.3s]:[0m
+[37m2026-01-04 09:24:16,368 | [33m  INFO | [33mmetrics: tp_m, value: 134688[0m
+[37m2026-01-04 09:24:16,368 | [33m  INFO | [33mmetrics: fn_m, value: 6[0m
+[37m2026-01-04 09:26:38,811 | [33m  INFO | [33mEpoch 7 [142.4s]: train==[3.02548 = 3.00196 + 0.02036 + 0.00316][0m
+[37m2026-01-04 09:26:42,159 | [33m  INFO | [33mvalidation==[[3.3s] tn_b: 2885, fp_b: 3836][0m
+[37m2026-01-04 09:27:36,497 | [33m  INFO | [33mtest model @epoch 7 [54.3s]:[0m
+[37m2026-01-04 09:27:36,497 | [33m  INFO | [33mmetrics: tp_m, value: 134692[0m
+[37m2026-01-04 09:27:36,497 | [33m  INFO | [33mmetrics: fn_m, value: 2[0m
+[37m2026-01-04 09:29:55,130 | [33m  INFO | [33mEpoch 8 [138.6s]: train==[2.94829 = 2.92906 + 0.01602 + 0.00321][0m
+[37m2026-01-04 09:29:58,420 | [33m  INFO | [33mvalidation==[[3.3s] tn_b: 2930, fp_b: 3791][0m
+[37m2026-01-04 09:30:50,683 | [33m  INFO | [33mtest model @epoch 8 [52.3s]:[0m
+[37m2026-01-04 09:30:50,683 | [33m  INFO | [33mmetrics: tp_m, value: 134692[0m
+[37m2026-01-04 09:30:50,684 | [33m  INFO | [33mmetrics: fn_m, value: 2[0m
+[37m2026-01-04 09:33:06,508 | [33m  INFO | [33mEpoch 9 [135.8s]: train==[2.84712 = 2.82994 + 0.01393 + 0.00325][0m
+[37m2026-01-04 09:33:09,634 | [33m  INFO | [33mvalidation==[[3.1s] tn_b: 2952, fp_b: 3769][0m
+[37m2026-01-04 09:34:00,652 | [33m  INFO | [33mtest model @epoch 9 [51.0s]:[0m
+[37m2026-01-04 09:34:00,653 | [33m  INFO | [33mmetrics: tp_m, value: 134692[0m
+[37m2026-01-04 09:34:00,653 | [33m  INFO | [33mmetrics: fn_m, value: 2[0m
+[37m2026-01-04 09:36:17,008 | [33m  INFO | [33mEpoch 10 [136.4s]: train==[2.79125 = 2.77555 + 0.01243 + 0.00328][0m
+[37m2026-01-04 09:36:19,905 | [33m  INFO | [33mvalidation==[[2.9s] tn_b: 2953, fp_b: 3768][0m
+[37m2026-01-04 09:37:13,522 | [33m  INFO | [33mtest model @epoch 10 [53.6s]:[0m
+[37m2026-01-04 09:37:13,522 | [33m  INFO | [33mmetrics: tp_m, value: 134692[0m
+[37m2026-01-04 09:37:13,522 | [33m  INFO | [33mmetrics: fn_m, value: 2[0m
+[37m2026-01-04 09:39:31,436 | [33m  INFO | [33mEpoch 11 [137.9s]: train==[2.75833 = 2.74431 + 0.01072 + 0.00330][0m
+[37m2026-01-04 09:39:34,703 | [33m  INFO | [33mvalidation==[[3.3s] tn_b: 2973, fp_b: 3748][0m
+[37m2026-01-04 09:40:40,240 | [33m  INFO | [33mtest model @epoch 11 [65.5s]:[0m
+[37m2026-01-04 09:40:40,240 | [33m  INFO | [33mmetrics: tp_m, value: 134692[0m
+[37m2026-01-04 09:40:40,240 | [33m  INFO | [33mmetrics: fn_m, value: 2[0m
+[37m2026-01-04 09:43:20,912 | [33m  INFO | [33mEpoch 12 [160.7s]: train==[2.75561 = 2.74230 + 0.00998 + 0.00333][0m
+[37m2026-01-04 09:43:24,612 | [33m  INFO | [33mvalidation==[[3.7s] tn_b: 2987, fp_b: 3734][0m
+[37m2026-01-04 09:44:30,925 | [33m  INFO | [33mtest model @epoch 12 [66.3s]:[0m
+[37m2026-01-04 09:44:30,926 | [33m  INFO | [33mmetrics: tp_m, value: 134692[0m
+[37m2026-01-04 09:44:30,926 | [33m  INFO | [33mmetrics: fn_m, value: 2[0m
+[37m2026-01-04 09:46:55,887 | [33m  INFO | [33mEpoch 13 [145.0s]: train==[2.68999 = 2.67764 + 0.00900 + 0.00335][0m
+[37m2026-01-04 09:46:59,284 | [33m  INFO | [33mvalidation==[[3.4s] tn_b: 2987, fp_b: 3734][0m
+[37m2026-01-04 09:47:51,775 | [33m  INFO | [33mtest model @epoch 13 [52.5s]:[0m
+[37m2026-01-04 09:47:51,776 | [33m  INFO | [33mmetrics: tp_m, value: 134692[0m
+[37m2026-01-04 09:47:51,776 | [33m  INFO | [33mmetrics: fn_m, value: 2[0m
+[37m2026-01-04 09:50:09,547 | [33m  INFO | [33mEpoch 14 [137.8s]: train==[2.64147 = 2.62956 + 0.00854 + 0.00337][0m
+[37m2026-01-04 09:50:12,740 | [33m  INFO | [33mvalidation==[[3.2s] tn_b: 3007, fp_b: 3714][0m
+[37m2026-01-04 09:51:05,928 | [33m  INFO | [33mtest model @epoch 14 [53.2s]:[0m
+[37m2026-01-04 09:51:05,929 | [33m  INFO | [33mmetrics: tp_m, value: 134692[0m
+[37m2026-01-04 09:51:05,929 | [33m  INFO | [33mmetrics: fn_m, value: 2[0m
+[37m2026-01-04 09:53:25,343 | [33m  INFO | [33mEpoch 15 [139.4s]: train==[2.61819 = 2.60677 + 0.00803 + 0.00339][0m
+[37m2026-01-04 09:53:28,788 | [33m  INFO | [33mvalidation==[[3.4s] tn_b: 2981, fp_b: 3740][0m
+[37m2026-01-04 09:54:22,197 | [33m  INFO | [33mtest model @epoch 15 [53.4s]:[0m
+[37m2026-01-04 09:54:22,197 | [33m  INFO | [33mmetrics: tp_m, value: 134692[0m
+[37m2026-01-04 09:54:22,197 | [33m  INFO | [33mmetrics: fn_m, value: 2[0m
+[37m2026-01-04 09:56:38,632 | [33m  INFO | [33mEpoch 16 [136.4s]: train==[2.65038 = 2.63919 + 0.00777 + 0.00341][0m
+[37m2026-01-04 09:56:41,781 | [33m  INFO | [33mvalidation==[[3.1s] tn_b: 2991, fp_b: 3730][0m
+[37m2026-01-04 09:57:32,615 | [33m  INFO | [33mtest model @epoch 16 [50.8s]:[0m
+[37m2026-01-04 09:57:32,616 | [33m  INFO | [33mmetrics: tp_m, value: 134692[0m
+[37m2026-01-04 09:57:32,616 | [33m  INFO | [33mmetrics: fn_m, value: 2[0m
+[37m2026-01-04 09:59:51,754 | [33m  INFO | [33mEpoch 17 [139.1s]: train==[2.61167 = 2.60098 + 0.00726 + 0.00343][0m
+[37m2026-01-04 09:59:54,834 | [33m  INFO | [33mvalidation==[[3.1s] tn_b: 2982, fp_b: 3739][0m
+[37m2026-01-04 10:00:47,258 | [33m  INFO | [33mtest model @epoch 17 [52.4s]:[0m
+[37m2026-01-04 10:00:47,262 | [33m  INFO | [33mmetrics: tp_m, value: 134692[0m
+[37m2026-01-04 10:00:47,263 | [33m  INFO | [33mmetrics: fn_m, value: 2[0m
+[37m2026-01-04 10:03:05,616 | [33m  INFO | [33mEpoch 18 [138.4s]: train==[2.58221 = 2.57221 + 0.00655 + 0.00345][0m
+[37m2026-01-04 10:03:08,793 | [33m  INFO | [33mvalidation==[[3.2s] tn_b: 3025, fp_b: 3696][0m
+[37m2026-01-04 10:04:02,920 | [33m  INFO | [33mtest model @epoch 18 [54.1s]:[0m
+[37m2026-01-04 10:04:02,921 | [33m  INFO | [33mmetrics: tp_m, value: 134692[0m
+[37m2026-01-04 10:04:02,921 | [33m  INFO | [33mmetrics: fn_m, value: 2[0m
+[37m2026-01-04 10:06:23,751 | [33m  INFO | [33mEpoch 19 [140.8s]: train==[2.55169 = 2.54184 + 0.00638 + 0.00347][0m
+[37m2026-01-04 10:06:27,044 | [33m  INFO | [33mvalidation==[[3.3s] tn_b: 3027, fp_b: 3694][0m
+[37m2026-01-04 10:07:17,538 | [33m  INFO | [33mtest model @epoch 19 [50.5s]:[0m
+[37m2026-01-04 10:07:17,539 | [33m  INFO | [33mmetrics: tp_m, value: 134692[0m
+[37m2026-01-04 10:07:17,539 | [33m  INFO | [33mmetrics: fn_m, value: 2[0m
+[37m2026-01-04 10:09:35,585 | [33m  INFO | [33mEpoch 20 [138.0s]: train==[2.51585 = 2.50624 + 0.00614 + 0.00348][0m
+[37m2026-01-04 10:09:38,718 | [33m  INFO | [33mvalidation==[[3.1s] tn_b: 3034, fp_b: 3687][0m
+[37m2026-01-04 10:10:30,935 | [33m  INFO | [33mtest model @epoch 20 [52.2s]:[0m
+[37m2026-01-04 10:10:30,935 | [33m  INFO | [33mmetrics: tp_m, value: 134692[0m
+[37m2026-01-04 10:10:30,936 | [33m  INFO | [33mmetrics: fn_m, value: 2[0m

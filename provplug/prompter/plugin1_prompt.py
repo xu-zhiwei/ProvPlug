@@ -1,0 +1,3 @@
+def get_plugin1_prompt():
+    prompt = """Based on the analysis, please identify and suggest potential causal relations between system entities with your corresponding confidence levels. The confidence levels assigned must be discriminatively distributed within the range of 0 to 5. The potential causal relations you provide must be grouped by pairs of system entities, where the two system entities in any pair must be distinct and are supposed to not directly connected in the undirected graph. The output must be a json list format: [{"entity1": "", "entitiy2": "", "confidence_level": %.2f}]."""
+    return prompt

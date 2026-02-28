@@ -1,0 +1,3 @@
+def get_provenance_semantic_prompt():
+    prompt = """You will be provided with a time-ordered sequence of system log entries. Each entry represents a system event involving two system entities in the format: subject,event_type,object. Your task is to perform a comprehensive analysis of the undirected graph constructed by these entries, from three distinct dimensions: 1. Temporal Analysis: Investigate the chronological order of events to identify sequential patterns between different events. 2. Contextual Analysis: Model the context by constructing a neighborhood graph centered on a subject or object. 3. Propagational Analysis: Track the propagation of system events from a subject or object to understand its evolutionary path."""
+    return prompt
